@@ -15,13 +15,13 @@ where authors.au_id is not null
 --
 -- Challange 2 - Who Have Published How Many At Where?
 -- ___________________________________________________
-select authors.au_id as 'AUTHOR ID', authors.au_lname as 'LAST NAME', authors.au_fname as 'FIRST NAME', pub_name as 'PUBLISHER', count(*) as 'TITLE COUNT'
+select authors.au_id as 'AUTHOR ID', authors.au_lname as 'LAST NAME', authors.au_fname as 'FIRST NAME', pub_name as 'PUBLISHER', count(title) as 'TITLE COUNT'
 from titles
 left join titleauthor on titleauthor.title_id = titles.title_id 
 left join authors on authors.au_id = titleauthor.au_id 
 inner JOIN publishers on publishers.pub_id = titles.pub_id 
 where authors.au_id is not null
-group by titles.title
+group by authors.au_id, publishers.pub_id
 ;
 
 -- ___________________________________________________
