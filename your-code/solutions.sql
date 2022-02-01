@@ -42,11 +42,12 @@ limit 3
 --
 -- Challenge 4 - Best Selling Authors Ranking
 -- ___________________________________________________
-select a.au_id as 'AUTHOR ID', au_lname as 'LAST NAME', au_fname as 'FIRST NAME',  sum(s.qty) as 'TOTAL'
-from titles as t
-left join titleauthor on titleauthor.title_id = t.title_id 
-left join authors as a on a.au_id = titleauthor.au_id 
-left join sales as s on s.title_id = t.title_id
-group by a.au_id
-ORDER BY TOTAL DESC
-;
+SELECT a.au_id AS "AUTHOR_ID", a.au_lname AS "LAST_NAME", a.au_fname AS "FIRST_NAME", ifnull(pb.pub_name,'None') AS "PUBLISHER",
+IFNULL(sum(sa.qty),0) AS 'TOTAL'
+	FROM authors AS a
+    LEFT JOIN titleauthor AS ta ON a.au_id = ta.au_id
+    LEFT JOIN titles AS tl ON tl.title_id = ta.title_id
+    LEFT JOIN publishers AS pb ON pb.pub_id = tl.pub_id
+    LEFT JOIN sales AS sa ON sa.title_id = ta.title_id
+    group by a.au_id
+    order by TOTAL desc
