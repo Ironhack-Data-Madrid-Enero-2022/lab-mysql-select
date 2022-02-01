@@ -23,8 +23,7 @@ ORDER BY count(titleauthor.title_id) DESC
 
 
 --CHALLENGE 3
-SELECT * FROM 
-(select a.au_id as "AUTHOR ID", au_lname as "LAST NAME",au_fname as "FIRST NAME", count(titleauthor.title_id) as TITLE_COUNT
+select a.au_id as "AUTHOR ID", au_lname as "LAST NAME",au_fname as "FIRST NAME", sum(sales.qty) as TITLE_COUNT
 from authors as a
 left join titleauthor
 on a.au_id = titleauthor.au_id
@@ -33,12 +32,12 @@ on titles.title_id = titleauthor.title_id
 left join sales
 on sales.title_id = titles.title_id
 group by a.au_id
-order by count(titleauthor.title_id) desc) tabla
-where TITLE_COUNT >= 3
+order by count(titleauthor.title_id) desc
+limit 3
 
 
 --CHALLENGE 4
-select a.au_id as "AUTHOR ID", au_lname as "LAST NAME",au_fname as "FIRST NAME", count(titleauthor.title_id) as TITLE_COUNT
+select a.au_id as "AUTHOR ID", au_lname as "LAST NAME",au_fname as "FIRST NAME", sum(sales.qty) as TITLE_COUNT
 from authors as a
 left join titleauthor
 on a.au_id = titleauthor.au_id
