@@ -7,7 +7,8 @@ from titles
 left join titleauthor on titleauthor.title_id = titles.title_id 
 left join authors on authors.au_id = titleauthor.au_id 
 inner JOIN publishers on publishers.pub_id = titles.pub_id 
-where authors.au_id is not null;
+where authors.au_id is not null
+;
 
 -- select * from titleauthor
 -- ___________________________________________________
@@ -22,6 +23,7 @@ inner JOIN publishers on publishers.pub_id = titles.pub_id
 where authors.au_id is not null
 group by titles.title
 ;
+
 -- ___________________________________________________
 --
 -- Challenge 3 - Best Selling Authors
@@ -35,6 +37,7 @@ group by a.au_id
 ORDER BY TOTAL DESC, a.au_fname
 limit 3
 ;
+
 -- ___________________________________________________
 --
 -- Challenge 4 - Best Selling Authors Ranking
