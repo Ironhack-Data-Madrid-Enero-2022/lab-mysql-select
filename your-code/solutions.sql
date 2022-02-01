@@ -32,12 +32,13 @@ on titles.title_id = titleauthor.title_id
 left join sales
 on sales.title_id = titles.title_id
 group by a.au_id
-order by count(titleauthor.title_id) desc
+order by countsum(sales.qty) desc
 limit 3
 
 
 --CHALLENGE 4
-select a.au_id as "AUTHOR ID", au_lname as "LAST NAME",au_fname as "FIRST NAME", sum(sales.qty) as TITLE_COUNT
+select * from
+(select a.au_id as "AUTHOR ID", au_lname as "LAST NAME",au_fname as "FIRST NAME", sum(sales.qty) as TITLE_COUNT
 from authors as a
 left join titleauthor
 on a.au_id = titleauthor.au_id
@@ -46,4 +47,5 @@ on titles.title_id = titleauthor.title_id
 left join sales
 on sales.title_id = titles.title_id
 group by a.au_id
-order by count(titleauthor.title_id) desc
+order by sum(sales.qty) desc) tabla 
+where TITLE_COUNT is not null
