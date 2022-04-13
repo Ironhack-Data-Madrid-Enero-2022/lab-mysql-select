@@ -2,66 +2,66 @@
 ----Query 1----
 
 
-select a.au_id as AUTHOR_ID, 
-au_lname as LAST_NAME, 
-au_fname as FIRST_NAME, 
-title as TITLE, 
-pub_name as PUBLISHERS
+SELECT a.au_id as author_id, 
+au_lname AS last_name, 
+au_fname AS first_name, 
+title AS title, 
+pub_name AS publishers
 from authors as a
-left join titleauthor as ta
-on a.au_id = ta.au_id
-left join titles as t
-on ta.title_id = t.title_id
-left join publishers as p
-on t.pub_id = p.pub_id
+LEFT JOIN titleauthor AS ta
+ON a.au_id = ta.au_id
+LEFT JOIN titles as t
+ON ta.title_id = t.title_id
+LEFT JOIN publishers as p
+ON t.pub_id = p.pub_id;
 
 ------Query 2-----
 
-select a.au_id as AUTHOR_ID, 
-au_lname as LAST_NAME, 
-au_fname as FIRST_NAME, 
-pub_name as PUBLISHERS,
-count(title) AS TITLE_COUNT
-from authors as a
-left join titleauthor as ta
-on a.au_id = ta.au_id
-left join titles as t
-on ta.title_id = t.title_id
-left join publishers as p
-on t.pub_id = p.pub_id
+SELECT a.au_id AS author_id, 
+au_lname AS last_name, 
+au_fname AS first_name, 
+pub_name AS publishers,
+COUNT(title) AS title_count
+FROM authors AS a
+LEFT JOIN titleauthor AS ta
+ON a.au_id = ta.au_id
+LEFT JOIN titles AS t
+ON ta.title_id = t.title_id
+LEFT JOIN publishers AS p
+ON t.pub_id = p.pub_id
 GROUP BY a.au_id;
 
 -----QUERY 3----
 
-select a.au_id as AUTHOR_ID, 
-au_lname as LAST_NAME, 
-au_fname as FIRST_NAME, 
-title as TITLE,
-count(title) AS TOTAL
-from authors as a
-left join titleauthor as ta
-on a.au_id = ta.au_id
-left join titles as t
-on ta.title_id = t.title_id
-left join publishers as p
-on t.pub_id = p.pub_id
-group by a.au_id
-order by TOTAL desc
-limit 3;
+SELECT a.au_id AS author_id, 
+au_lname AS last_name, 
+au_fname AS first_name, 
+title AS title,
+COUNT(title) AS total
+FROM authors AS a
+LEFT JOIN titleauthor AS ta
+ON a.au_id = ta.au_id
+LEFT JOIN titles AS t
+ON ta.title_id = t.title_id
+LEFT JOIN publishers AS p
+ON t.pub_id = p.pub_id
+GROUP BY a.au_id
+ORDER BY total DESC
+LIMIT 3;
 
 ----QUERY 4----
 
-select a.au_id as AUTHOR_ID, 
-au_lname as LAST_NAME, 
-au_fname as FIRST_NAME, 
+SELECT a.au_id AS author_id, 
+au_lname AS last_name, 
+au_fname AS first_name, 
 title as TITLE,
-ifnull(count(title), 0) AS TOTAL
-from authors as a
-left join titleauthor as ta
-on a.au_id = ta.au_id
-left join titles as t
-on ta.title_id = t.title_id
-left join publishers as p
-on t.pub_id = p.pub_id
-group by a.au_id
-order by TOTAL desc;
+IFNULL(count(title), 0) AS TOTAL
+FROM authors AS a
+LEFT JOIN titleauthor as ta
+ON a.au_id = ta.au_id
+LEFT JOIN titles AS t
+ON ta.title_id = t.title_id
+LEFT JOIN publishers as p
+ON t.pub_id = p.pub_id
+GROUP BY a.au_id
+ORDER BY TOTAL DESC;
